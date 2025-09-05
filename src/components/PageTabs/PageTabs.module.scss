@@ -1,0 +1,10 @@
+.tabsWrapper {
+  flex-grow: 1;
+  .tabList {
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    display: flex;
+    gap: 20px;
+  }
+}

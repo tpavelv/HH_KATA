@@ -1,0 +1,11 @@
+.activeDot {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--active-dot-color);
+  top: 50%;
+  right: -10px;
+  transform: translateY(-50%);
+  z-index: 10;
+}

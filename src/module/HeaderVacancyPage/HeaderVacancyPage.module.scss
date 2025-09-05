@@ -1,0 +1,22 @@
+.header {
+  width: 100%;
+  padding: 24px 0;
+  border-bottom: 1px solid var(--mantine-color-blackCustom-3);
+  &__wrap {
+    display: flex;
+    width: 1000px;
+    margin: 0 auto;
+    justify-content: space-between;
+  }
+
+  .title {
+    margin: 0;
+    margin-bottom: 4px;
+    font-size: 24px;
+  }
+  .subtitle {
+    margin: 0;
+    font-size: 20px;
+    color: var(--mantine-color-blackCustom-5);
+  }
+}

@@ -1,0 +1,20 @@
+.vacancy_list {
+  width: 659px;
+  ul {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    margin-bottom: 24px;
+  }
+  .not_found {
+    color: var(--mantine-color-blackCustom-5);
+    text-align: center;
+  }
+}
+.vacancy_loader {
+  width: 659px;
+  text-align: center;
+}
