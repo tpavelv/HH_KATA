@@ -10,7 +10,7 @@ export const VacancyListView = ({ vacancies }: VacancyListViewProps) => {
     <ul>
       {vacancies.map((el: Card) => (
         <li key={el.id}>
-          <VacancyCard vacancy={el} />
+          <VacancyCard vacancy={el} isAbout />
         </li>
       ))}
     </ul>

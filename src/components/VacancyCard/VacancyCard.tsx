@@ -3,6 +3,7 @@ import { Card } from '../../types'
 
 interface VacancyCardProps {
   vacancy: Card
+  isAbout?: boolean
 }
 
 const currencyMap: Record<string, string> = {
@@ -18,7 +19,7 @@ const experienceMap: Record<string, string> = {
   moreThan6: 'Опыт более 6 лет',
 }
 
-export const VacancyCard = ({ vacancy }: VacancyCardProps) => {
+export const VacancyCard = ({ vacancy, isAbout }: VacancyCardProps) => {
   const { id, name, salary, experience, area, employer, work_format, alternate_url } = vacancy
 
   const handleShow = (id: string) => console.log(id)
@@ -47,6 +48,7 @@ export const VacancyCard = ({ vacancy }: VacancyCardProps) => {
       url={alternate_url}
       onShow={() => handleShow(id)}
       onReply={() => handleReply(id)}
+      isAbout={isAbout}
     />
   )
 }
