@@ -68,22 +68,29 @@ export const VacancyCardView = ({
       <Text mb={16}>{city}</Text>
 
       <Group className={styles['cardItem__button-group']}>
-        {!isAbout && (
-          <Button
-            color="black"
-            radius="sm"
-            onClick={onShow}
-            component="a"
-            href={url}
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Смотреть вакансию
+        {isAbout ? (
+          <Button color="black" radius="sm" onClick={onReply}>
+            Откликнуться на hh.ru
           </Button>
+        ) : (
+          <>
+            <Button
+              color="black"
+              radius="sm"
+              onClick={onShow}
+              // component="a"
+              // href={`/vacancy/123`}
+              // target="_blank"
+              // rel="noopener noreferrer"
+            >
+              Смотреть вакансию
+            </Button>
+
+            <Button variant="light" color="black" radius="sm" onClick={onReply}>
+              Откликнуться
+            </Button>
+          </>
         )}
-        <Button variant="light" color="black" radius="sm" onClick={onReply}>
-          Откликнуться
-        </Button>
       </Group>
     </Card>
   )

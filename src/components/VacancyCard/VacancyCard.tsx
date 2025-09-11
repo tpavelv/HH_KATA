@@ -1,5 +1,6 @@
 import { VacancyCardView } from './VacancyCardView'
 import { Card } from '../../types'
+import { useNavigate } from 'react-router-dom'
 
 interface VacancyCardProps {
   vacancy: Card
@@ -21,8 +22,11 @@ const experienceMap: Record<string, string> = {
 
 export const VacancyCard = ({ vacancy, isAbout }: VacancyCardProps) => {
   const { id, name, salary, experience, area, employer, work_format, alternate_url } = vacancy
-
-  const handleShow = (id: string) => console.log(id)
+  const navigate = useNavigate()
+  const handleShow = (id: string) => {
+    console.log(id)
+    navigate(`/vacancy/${id}`)
+  }
   const handleReply = (id: string) => console.log(id)
 
   const salaryText = salary

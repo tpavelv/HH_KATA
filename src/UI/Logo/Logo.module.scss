@@ -1,7 +1,13 @@
 .logo {
   display: flex;
   align-items: center;
-  gap: 10px;
+
+  a {
+    text-decoration: none;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+  }
 
   img {
     width: 30px;
@@ -9,5 +15,7 @@
   .title {
     font-size: 16px;
     font-weight: 600;
+
+    color: var(--mantine-color-blackCustom-9);
   }
 }

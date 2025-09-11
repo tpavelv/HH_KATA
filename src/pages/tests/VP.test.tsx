@@ -10,6 +10,7 @@ import { mockCards } from '../../mocks/mockCards'
 import { AsyncThunkAction } from '@reduxjs/toolkit'
 import { Card } from '../../types'
 import { RootState } from '../../store/store'
+
 vi.spyOn(thunkModule, 'getData').mockImplementation(() => {
   return {
     type: 'vacancies/getData/fulfilled',
