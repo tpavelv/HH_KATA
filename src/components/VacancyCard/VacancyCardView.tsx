@@ -15,6 +15,7 @@ interface VacancyCardViewProps {
   work_format: WorkFormatOption[]
   city: string
   url: string
+  isAbout?: boolean
   onShow: () => void
   onReply: () => void
 }
@@ -27,6 +28,7 @@ export const VacancyCardView = ({
   work_format,
   city,
   url,
+  isAbout,
   onShow,
   onReply,
 }: VacancyCardViewProps) => {
@@ -66,20 +68,29 @@ export const VacancyCardView = ({
       <Text mb={16}>{city}</Text>
 
       <Group className={styles['cardItem__button-group']}>
-        <Button
-          color="black"
-          radius="sm"
-          onClick={onShow}
-          component="a"
-          href={url}
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Смотреть вакансию
-        </Button>
-        <Button variant="light" color="black" radius="sm" onClick={onReply}>
-          Откликнуться
-        </Button>
+        {isAbout ? (
+          <Button color="black" radius="sm" onClick={onReply}>
+            Откликнуться на hh.ru
+          </Button>
+        ) : (
+          <>
+            <Button
+              color="black"
+              radius="sm"
+              onClick={onShow}
+              // component="a"
+              // href={`/vacancy/123`}
+              // target="_blank"
+              // rel="noopener noreferrer"
+            >
+              Смотреть вакансию
+            </Button>
+
+            <Button variant="light" color="black" radius="sm" onClick={onReply}>
+              Откликнуться
+            </Button>
+          </>
+        )}
       </Group>
     </Card>
   )

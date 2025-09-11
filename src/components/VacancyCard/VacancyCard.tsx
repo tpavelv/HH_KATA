@@ -1,8 +1,10 @@
 import { VacancyCardView } from './VacancyCardView'
 import { Card } from '../../types'
+import { useNavigate } from 'react-router-dom'
 
 interface VacancyCardProps {
   vacancy: Card
+  isAbout?: boolean
 }
 
 const currencyMap: Record<string, string> = {
@@ -18,10 +20,13 @@ const experienceMap: Record<string, string> = {
   moreThan6: 'Опыт более 6 лет',
 }
 
-export const VacancyCard = ({ vacancy }: VacancyCardProps) => {
+export const VacancyCard = ({ vacancy, isAbout }: VacancyCardProps) => {
   const { id, name, salary, experience, area, employer, work_format, alternate_url } = vacancy
-
-  const handleShow = (id: string) => console.log(id)
+  const navigate = useNavigate()
+  const handleShow = (id: string) => {
+    console.log(id)
+    navigate(`/vacancy/${id}`)
+  }
   const handleReply = (id: string) => console.log(id)
 
   const salaryText = salary
@@ -47,6 +52,7 @@ export const VacancyCard = ({ vacancy }: VacancyCardProps) => {
       url={alternate_url}
       onShow={() => handleShow(id)}
       onReply={() => handleReply(id)}
+      isAbout={isAbout}
     />
   )
 }
