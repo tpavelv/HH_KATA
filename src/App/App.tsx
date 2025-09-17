@@ -1,24 +1,43 @@
-import style from './App.module.scss'
-
 import { VacancyPage } from '../pages/VacancyPage'
 import { VacancyInfoPage } from '../components/VacancyInfoPage/VacancyInfoPage'
-import { Header } from '../module/Header/Header'
 
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import {
+  BrowserRouter,
+  createBrowserRouter,
+  createRoutesFromElements,
+  Navigate,
+  Route,
+  Routes,
+  RouterProvider,
+} from 'react-router-dom'
 import { NotFounded } from '../components/NotFounded/NotFounded'
+import { Layout } from '../module/Layout/Layout'
+
 function App() {
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<Layout />}>
+        <Route path="/" element={<Navigate to="/vacancy" replace />} />
+        <Route path="/vacancies" element={<VacancyPage />} />
+        <Route path="/vacancies/:id" element={<VacancyInfoPage />} />
+      </Route>
+    )
+  )
+
   return (
-    <BrowserRouter>
-      <div className={style.app}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Navigate to="/vacancy" replace />} />
-          <Route path="/vacancies" element={<VacancyPage />} />
-          <Route path="/vacancies/:id" element={<VacancyInfoPage />} />
-          {/* <Route path="/notfounded" element={<NotFounded />} /> */}
-        </Routes>
-      </div>
-    </BrowserRouter>
+    <RouterProvider router={router} />
+
+    // <BrowserRouter>
+    //   <div className={style.app}>
+    //     <Header />
+    //     <Routes>
+    //       <Route path="/" element={<Navigate to="/vacancy" replace />} />
+    //       <Route path="/vacancies" element={<VacancyPage />} />
+    //       <Route path="/vacancies/:id" element={<VacancyInfoPage />} />
+    //       {/* <Route path="/notfounded" element={<NotFounded />} /> */}
+    //     </Routes>
+    //   </div>
+    // </BrowserRouter>
   )
 }
 
