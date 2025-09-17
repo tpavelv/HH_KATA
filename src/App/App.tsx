@@ -13,8 +13,8 @@ function App() {
         <Header />
         <Routes>
           <Route path="/" element={<Navigate to="/vacancy" replace />} />
-          <Route path="/vacancy" element={<VacancyPage />} />
-          <Route path="/vacancy/:id" element={<VacancyInfoPage />} />
+          <Route path="/vacancies" element={<VacancyPage />} />
+          <Route path="/vacancies/:id" element={<VacancyInfoPage />} />
           {/* <Route path="/notfounded" element={<NotFounded />} /> */}
         </Routes>
       </div>

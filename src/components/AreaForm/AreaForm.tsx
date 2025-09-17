@@ -1,6 +1,7 @@
 import { useSearchParams } from 'react-router-dom'
 
 import { Select } from '@mantine/core'
+import styles from './AreaForm.module.scss'
 
 export const AreaForm = () => {
   const [searchParams, setSearchParams] = useSearchParams()
@@ -18,8 +19,9 @@ export const AreaForm = () => {
 
   const currentArea = searchParams.get('area') || 'all'
   return (
-    <aside>
+    <aside className={styles.area}>
       <Select
+        className={styles.select}
         w={317}
         placeholder="Все города"
         autoSelectOnBlur
@@ -31,6 +33,11 @@ export const AreaForm = () => {
         onChange={handleSubmit}
         searchable
         value={currentArea}
+        readOnly
+        styles={{
+          input: { color: 'var(--mantine-color-blackCustom-4)' },
+        }}
+        // onFocus={console.log('focus')}
       />
     </aside>
   )
