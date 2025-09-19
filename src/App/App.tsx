@@ -1,5 +1,5 @@
 import { VacancyPage } from '../pages/VacancyPage'
-import { VacancyInfoPage } from '../components/VacancyInfoPage/VacancyInfoPage'
+import { VacancyInfoPage, vacancyInfoLoader } from '../components/VacancyInfoPage/VacancyInfoPage'
 import { vacanciesLoader, VacancyList } from '../module/VacancyList/VacancyList'
 import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom'
 import { NotFounded } from '../components/NotFounded/NotFounded'
@@ -15,7 +15,13 @@ function App() {
           <Route path="moscow" element={<VacancyList />} loader={vacanciesLoader('1')} />
           <Route path="petersburg" element={<VacancyList />} loader={vacanciesLoader('2')} />
         </Route>
-        <Route path="/vacancies/:id" element={<VacancyInfoPage />} />
+        <Route
+          path="/vacancies/:id"
+          element={<VacancyInfoPage />}
+          loader={vacancyInfoLoader}
+          errorElement={<NotFounded />}
+        />
+        <Route path="*" element={<NotFounded />} />
       </Route>
     )
   )
