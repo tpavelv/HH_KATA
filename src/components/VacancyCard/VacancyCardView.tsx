@@ -17,7 +17,6 @@ interface VacancyCardViewProps {
   url: string
   isAbout?: boolean
   id: string
-  onShow: () => void
   onReply: () => void
 }
 
@@ -28,18 +27,16 @@ export const VacancyCardView = ({
   company,
   work_format,
   city,
-  url,
   isAbout,
   id,
-  onShow,
   onReply,
 }: VacancyCardViewProps) => {
   const theme = useMantineTheme()
 
   const badgeColors: Record<string, { bg: string; color: string }> = {
-    ON_SITE: { bg: theme.colors.blackCustom[2], color: theme.colors.blackCustom[5] }, // Ultra Light / Gray
-    REMOTE: { bg: theme.colors.primary[5], color: theme.colors.blackCustom[0] }, // Primary / White
-    HYBRID: { bg: theme.colors.blackCustom[9], color: theme.colors.blackCustom[0] }, // Black1 / White
+    ON_SITE: { bg: theme.colors.blackCustom[2], color: theme.colors.blackCustom[5] },
+    REMOTE: { bg: theme.colors.primary[5], color: theme.colors.blackCustom[0] },
+    HYBRID: { bg: theme.colors.blackCustom[9], color: theme.colors.blackCustom[0] },
   }
 
   return (

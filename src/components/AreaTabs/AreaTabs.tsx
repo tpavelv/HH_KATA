@@ -1,7 +1,7 @@
 import { Tabs } from '@mantine/core'
 import { useNavigate, useLocation } from 'react-router-dom'
 import styles from './AreaTabs.module.scss'
-import { useTypedDispatch, useTypedSelector } from '../../hooks/redux/redux'
+import { useTypedDispatch } from '../../hooks/redux/redux'
 import { closeAreaTab } from '../../reducers/UiSlice'
 
 import { useClickOutside } from '@mantine/hooks'
