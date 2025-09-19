@@ -1,0 +1,32 @@
+.notFoundedPage {
+  width: 707px;
+  margin: 72px auto;
+  box-sizing: border-box;
+  border-radius: 12px;
+  padding: 32px;
+  background-color: var(--mantine-color-blackCustom-0);
+
+  //   padding:;
+  .wraper {
+    display: flex;
+    align-items: center;
+    .title {
+      margin: 0;
+      margin-bottom: 12px;
+    }
+    .link {
+      text-decoration: none;
+      display: block;
+      background-color: red;
+      padding: 8px 22px;
+      border-radius: 5px;
+      background-color: var(--mantine-color-primary-5);
+      color: var(--mantine-color-blackCustom-0);
+      text-wrap: nowrap;
+    }
+  }
+  .image {
+    border-radius: 12px;
+    width: 100%;
+  }
+}

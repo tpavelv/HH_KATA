@@ -1,37 +1,35 @@
-import { useSearchParams } from 'react-router-dom'
-
+import { useLocation } from 'react-router-dom'
+import { openAreaTab } from '../../reducers/UiSlice'
 import { Select } from '@mantine/core'
+import styles from './AreaForm.module.scss'
+import { useTypedDispatch, useTypedSelector } from '../../hooks/redux/redux'
+import { AreaTabs } from '../AreaTabs/AreaTabs'
+import { City } from '../../types'
 
 export const AreaForm = () => {
-  const [searchParams, setSearchParams] = useSearchParams()
+  const dispatch = useTypedDispatch()
+  const tabsIsActive = useTypedSelector((state) => state.ui.showAreaTabs)
 
-  const handleSubmit = (value: string | null) => {
-    const param = new URLSearchParams(searchParams)
-    if (value && value !== 'all') {
-      param.set('area', value)
-    } else {
-      param.delete('area')
-    }
-    param.set('page', '1')
-    setSearchParams(param)
-  }
+  const location = useLocation()
+  const pathParts = location.pathname.split('/')
 
-  const currentArea = searchParams.get('area') || 'all'
+  const currentArea = pathParts[2] || 'all'
+
   return (
-    <aside>
+    <aside className={styles.area}>
       <Select
+        className={styles.select}
         w={317}
-        placeholder="Все города"
+        placeholder={City[currentArea as keyof typeof City] || 'Все города'}
         autoSelectOnBlur
-        data={[
-          { value: 'moscow', label: 'Москва' },
-          { value: 'spb', label: 'Санкт-Петербург' },
-          { value: 'all', label: 'Все города' },
-        ]}
-        onChange={handleSubmit}
         searchable
-        value={currentArea}
+        readOnly
+        styles={{
+          input: { color: 'var(--mantine-color-blackCustom-4)' },
+        }}
+        onFocus={() => dispatch(openAreaTab())}
       />
+      {tabsIsActive && <AreaTabs />}
     </aside>
   )
 }

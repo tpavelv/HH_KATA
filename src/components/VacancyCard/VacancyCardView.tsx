@@ -1,7 +1,7 @@
 import { Card, Text, Badge, Button, Group, useMantineTheme } from '@mantine/core'
 import styles from './VacancyCard.module.scss'
 import { WorkFormatName } from '../../types'
-
+import { Link } from 'react-router-dom'
 interface WorkFormatOption {
   id: string
   name: string
@@ -16,7 +16,7 @@ interface VacancyCardViewProps {
   city: string
   url: string
   isAbout?: boolean
-  onShow: () => void
+  id: string
   onReply: () => void
 }
 
@@ -27,17 +27,16 @@ export const VacancyCardView = ({
   company,
   work_format,
   city,
-  url,
   isAbout,
-  onShow,
+  id,
   onReply,
 }: VacancyCardViewProps) => {
   const theme = useMantineTheme()
 
   const badgeColors: Record<string, { bg: string; color: string }> = {
-    ON_SITE: { bg: theme.colors.blackCustom[2], color: theme.colors.blackCustom[5] }, // Ultra Light / Gray
-    REMOTE: { bg: theme.colors.primary[5], color: theme.colors.blackCustom[0] }, // Primary / White
-    HYBRID: { bg: theme.colors.blackCustom[9], color: theme.colors.blackCustom[0] }, // Black1 / White
+    ON_SITE: { bg: theme.colors.blackCustom[2], color: theme.colors.blackCustom[5] },
+    REMOTE: { bg: theme.colors.primary[5], color: theme.colors.blackCustom[0] },
+    HYBRID: { bg: theme.colors.blackCustom[9], color: theme.colors.blackCustom[0] },
   }
 
   return (
@@ -74,21 +73,12 @@ export const VacancyCardView = ({
           </Button>
         ) : (
           <>
-            <Button
-              color="black"
-              radius="sm"
-              onClick={onShow}
-              // component="a"
-              // href={`/vacancy/123`}
-              // target="_blank"
-              // rel="noopener noreferrer"
-            >
+            <Link to={`/vacancies/${id}`} className={`${styles.link} ${styles.link_primary}`}>
               Смотреть вакансию
-            </Button>
-
-            <Button variant="light" color="black" radius="sm" onClick={onReply}>
+            </Link>
+            <Link to={`/vacancies/${id}`} className={`${styles.link} ${styles.link_secondary}`}>
               Откликнуться
-            </Button>
+            </Link>
           </>
         )}
       </Group>

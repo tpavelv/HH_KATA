@@ -1,85 +1,31 @@
-// import { useTypedSelector, useTypedDispatch } from '../../hooks/redux/redux'
-// // import { changePage } from '../../reducers/RequestDataSlice'
-// import { VacancyListView } from './VacancyListView'
-// import { Pagination, Group } from '@mantine/core'
-// import styles from './VacancyList.module.scss'
-// import { useEffect } from 'react'
-// import { useSearchParams } from 'react-router-dom'
-// import { getData } from '../../reducers/GetVacanciesThunk'
-
-// export const VacancyList = () => {
-//   const [searchParams, setSearchParams] = useSearchParams()
-//   const pages = useTypedSelector((state) => state.requestData.pages)
-//   const dispatch = useTypedDispatch()
-
-//   useEffect(() => {
-//     const params = new URLSearchParams(searchParams)
-//     let changed = false
-
-//     // area по дефолту
-//     if (!params.get('area')) {
-//       params.set('area', 'all')
-//       changed = true
-//     }
-
-//     // page по дефолту, только если pages > 1
-//     if (!params.get('page') && pages && pages !== '1') {
-//       params.set('page', '1')
-//       changed = true
-//     }
-
-//     if (changed) {
-//       setSearchParams(params)
-//       return
-//     }
-
-//     dispatch(getData(searchParams))
-//   }, [searchParams, dispatch, setSearchParams, pages])
-
-//   const { data, loading } = useTypedSelector((state) => state.requestData)
-//   if (loading) {
-//     return <h2 className={styles.vacancy_loader}>Loading...</h2>
-//   }
-//   return (
-//     <section className={styles.vacancy_list}>
-//       {data.length ? <VacancyListView vacancies={data} /> : <div className={styles.not_found}>Вакансии не найдены</div>}
-
-//       {pages && Number(pages) > 1 && (
-//         <Group justify="center">
-//           {/* <Pagination total={Number(pages)} value={Number(page)} onChange={(id) => dispatch(changePage(id))} /> */}
-//         </Group>
-//       )}
-//     </section>
-//   )
-// }
-import { useTypedSelector } from '../../hooks/redux/redux'
 import { VacancyListView } from './VacancyListView'
 import { Group, Pagination } from '@mantine/core'
 import styles from './VacancyList.module.scss'
-import { useSearchParams } from 'react-router-dom'
+import { useLoaderData, useSearchParams } from 'react-router-dom'
 
 export const VacancyList = () => {
-  const { data, loading, pages } = useTypedSelector((state) => state.requestData)
   const [searchParams, setSearchParams] = useSearchParams()
   const currentPage = Number(searchParams.get('page') ?? 1)
 
-  if (loading) {
-    return <h2 className={styles.vacancy_loader}>Loading...</h2>
-  }
+  const newData = useLoaderData()
+  const { items, pages } = newData
 
   return (
     <section className={styles.vacancy_list}>
-      {data.length ? <VacancyListView vacancies={data} /> : <div className={styles.not_found}>Вакансии не найдены</div>}
+      {items.length ? (
+        <VacancyListView vacancies={items} />
+      ) : (
+        <div className={styles.not_found}>Вакансии не найдены</div>
+      )}
 
       {pages && Number(pages) > 1 && (
         <Group justify="center">
           <Pagination
-            total={Number(pages)}
+            total={Number(pages) - 1}
             value={currentPage}
             onChange={(page) => {
-              const params = new URLSearchParams(searchParams)
-              params.set('page', String(page))
-              setSearchParams(params)
+              searchParams.set('page', String(page))
+              setSearchParams(searchParams)
             }}
           />
         </Group>
@@ -87,3 +33,35 @@ export const VacancyList = () => {
     </section>
   )
 }
+
+import type { LoaderFunctionArgs } from 'react-router-dom'
+
+export const vacanciesLoader =
+  (area?: string) =>
+  async ({ request }: LoaderFunctionArgs) => {
+    const url = new URL(request.url)
+    const page = url.searchParams.get('page') ?? '1'
+
+    const text = url.searchParams.get('text') ?? ''
+
+    const apiUrl = new URL('https://api.hh.ru/vacancies')
+
+    apiUrl.searchParams.set('search_field', 'name')
+    apiUrl.searchParams.append('search_field', 'company_name')
+    apiUrl.searchParams.set('industry', '7')
+    apiUrl.searchParams.set('professional_role', '96')
+    apiUrl.searchParams.set('page', page)
+
+    if (text) apiUrl.searchParams.set('text', text)
+    if (area) {
+      apiUrl.searchParams.set('area', area)
+    }
+
+    const res = await fetch(apiUrl)
+
+    if (!res.ok) {
+      throw new Response('Ошибка загрузки вакансий', { status: res.status })
+    }
+
+    return res.json()
+  }

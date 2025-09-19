@@ -12,4 +12,21 @@
     color: var(--mantine-color-blackCustom-5);
     font-size: 14px;
   }
+  .link {
+    text-decoration: none;
+    display: block;
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 6px 18px;
+    min-height: 20px;
+  }
+  .link_primary {
+    background-color: var(--mantine-color-blackCustom-9);
+    color: var(--mantine-color-blackCustom-0);
+  }
+  .link_secondary {
+    color: var(--mantine-color-blackCustom-9);
+    background-color: var(--mantine-color-blackCustom-2);
+  }
 }

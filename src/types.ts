@@ -86,3 +86,9 @@ export interface Card {
   work_format: WorkFormatOption[]
   alternate_url: string
 }
+
+export enum City {
+  moscow = 'Москва',
+  petersburg = 'Санкт-Петербург',
+  all = 'Все города',
+}

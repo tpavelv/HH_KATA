@@ -1,25 +1,32 @@
-import style from './App.module.scss'
-
 import { VacancyPage } from '../pages/VacancyPage'
-import { VacancyInfoPage } from '../components/VacancyInfoPage/VacancyInfoPage'
-import { Header } from '../module/Header/Header'
-
-import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom'
+import { VacancyInfoPage, vacancyInfoLoader } from '../components/VacancyInfoPage/VacancyInfoPage'
+import { vacanciesLoader, VacancyList } from '../module/VacancyList/VacancyList'
+import { createBrowserRouter, createRoutesFromElements, Navigate, Route, RouterProvider } from 'react-router-dom'
 import { NotFounded } from '../components/NotFounded/NotFounded'
+import { Layout } from '../module/Layout/Layout'
+
 function App() {
-  return (
-    <BrowserRouter>
-      <div className={style.app}>
-        <Header />
-        <Routes>
-          <Route path="/" element={<Navigate to="/vacancy" replace />} />
-          <Route path="/vacancy" element={<VacancyPage />} />
-          <Route path="/vacancy/:id" element={<VacancyInfoPage />} />
-          {/* <Route path="/notfounded" element={<NotFounded />} /> */}
-        </Routes>
-      </div>
-    </BrowserRouter>
+  const router = createBrowserRouter(
+    createRoutesFromElements(
+      <Route element={<Layout />}>
+        <Route path="/" element={<Navigate to="/vacancies" replace />} />
+        <Route path="/vacancies" element={<VacancyPage />}>
+          <Route index element={<VacancyList />} loader={vacanciesLoader()} />
+          <Route path="moscow" element={<VacancyList />} loader={vacanciesLoader('1')} />
+          <Route path="petersburg" element={<VacancyList />} loader={vacanciesLoader('2')} />
+        </Route>
+        <Route
+          path="/vacancies/:id"
+          element={<VacancyInfoPage />}
+          loader={vacancyInfoLoader}
+          errorElement={<NotFounded />}
+        />
+        <Route path="*" element={<NotFounded />} />
+      </Route>
+    )
   )
+
+  return <RouterProvider router={router} />
 }
 
 export default App
