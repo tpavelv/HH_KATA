@@ -14,7 +14,7 @@ export const SearchForm = () => {
 
   useEffect(() => {
     form.setValues({ search: searchParams.get('text') || '' })
-  }, [form, searchParams])
+  }, [searchParams])
 
   const handleSubmit = (value: string) => {
     const params = new URLSearchParams(searchParams)
