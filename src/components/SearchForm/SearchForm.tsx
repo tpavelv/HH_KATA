@@ -1,36 +1,45 @@
 import { Box, Button, Group, TextInput } from '@mantine/core'
 import { useForm } from '@mantine/form'
-import { useTypedDispatch } from '../../hooks/redux/redux'
-import { changeSearchText } from '../../reducers/RequestDataSlice'
+import { useSearchParams } from 'react-router-dom'
+import { useEffect } from 'react'
 
 export const SearchForm = () => {
+  const [searchParams, setSearchParams] = useSearchParams()
+
   const form = useForm({
-    mode: 'uncontrolled',
     initialValues: {
-      search: '',
-      termsOfService: true,
+      search: searchParams.get('text') || '',
     },
   })
-  const dispatch = useTypedDispatch()
+
+  useEffect(() => {
+    form.setValues({ search: searchParams.get('text') || '' })
+  }, [searchParams])
+
   const handleSubmit = (value: string) => {
-    dispatch(changeSearchText(value))
+    const params = new URLSearchParams(searchParams)
+    if (value) {
+      params.set('text', value)
+    } else {
+      params.delete('text')
+    }
+    params.set('page', '1')
+    setSearchParams(params)
   }
+
   return (
     <Box w={508}>
       <form
         onSubmit={form.onSubmit((values) => {
           handleSubmit(values.search)
-          form.reset()
         })}
       >
         <Group mt="md">
           <TextInput
             placeholder="Должность или название компании"
-            key={form.key('search')}
             {...form.getInputProps('search')}
             style={{ flex: '1' }}
           />
-
           <Button type="submit">Найти</Button>
         </Group>
       </form>

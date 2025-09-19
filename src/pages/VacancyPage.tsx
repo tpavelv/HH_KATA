@@ -2,19 +2,21 @@ import { useEffect } from 'react'
 import { VacancyList } from '../module/VacancyList/VacancyList'
 import { AreaForm } from '../components/AreaForm/AreaForm'
 
-import { useTypedSelector, useTypedDispatch } from '../hooks/redux/redux'
+import { useTypedDispatch } from '../hooks/redux/redux'
 import styles from './VacancyPage.module.scss'
 import { getData } from '../reducers/GetVacanciesThunk'
 import { HeaderVacancyPage } from '../module/HeaderVacancyPage/HeaderVacancyPage'
+import { useSearchParams } from 'react-router-dom'
 
 export const VacancyPage = () => {
-  const state = useTypedSelector((state) => state.requestData)
-  const { page, area, text } = state
   const dispatch = useTypedDispatch()
 
+  const [searchParams] = useSearchParams()
+  const paramsObj = Object.fromEntries(searchParams.entries())
+
   useEffect(() => {
-    dispatch(getData())
-  }, [dispatch, page, area, text])
+    dispatch(getData(searchParams))
+  }, [dispatch, JSON.stringify(paramsObj)])
 
   return (
     <main className={styles.page}>
