@@ -1,7 +1,7 @@
 import { Card, Text, Badge, Button, Group, useMantineTheme } from '@mantine/core'
 import styles from './VacancyCard.module.scss'
 import { WorkFormatName } from '../../types'
-
+import { Link } from 'react-router-dom'
 interface WorkFormatOption {
   id: string
   name: string
@@ -16,6 +16,7 @@ interface VacancyCardViewProps {
   city: string
   url: string
   isAbout?: boolean
+  id: string
   onShow: () => void
   onReply: () => void
 }
@@ -29,6 +30,7 @@ export const VacancyCardView = ({
   city,
   url,
   isAbout,
+  id,
   onShow,
   onReply,
 }: VacancyCardViewProps) => {
@@ -74,21 +76,12 @@ export const VacancyCardView = ({
           </Button>
         ) : (
           <>
-            <Button
-              color="black"
-              radius="sm"
-              onClick={onShow}
-              // component="a"
-              // href={`/vacancy/123`}
-              // target="_blank"
-              // rel="noopener noreferrer"
-            >
+            <Link to={`/vacancies/${id}`} className={`${styles.link} ${styles.link_primary}`}>
               Смотреть вакансию
-            </Button>
-
-            <Button variant="light" color="black" radius="sm" onClick={onReply}>
+            </Link>
+            <Link to={`/vacancies/${id}`} className={`${styles.link} ${styles.link_secondary}`}>
               Откликнуться
-            </Button>
+            </Link>
           </>
         )}
       </Group>

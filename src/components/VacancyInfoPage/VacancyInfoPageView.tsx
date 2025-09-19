@@ -7,8 +7,8 @@ interface VacancyInfoPageViewProps {
 export const VacancyInfoPageView = ({ description }: VacancyInfoPageViewProps) => {
   if (!description) return null
   return (
-    <article className={styles.vacancy_page__description}>
-      <h2>Компания</h2>
+    <article className={styles.description}>
+      <h2 className={styles.title}>Компания</h2>
 
       <div dangerouslySetInnerHTML={{ __html: description }} />
     </article>

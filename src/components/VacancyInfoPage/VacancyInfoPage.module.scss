@@ -3,14 +3,14 @@
   margin: 0 auto;
   margin-top: 24px;
 
-  &__description {
+  .description {
     margin-top: 29px;
     margin-bottom: 20px;
     padding: 24px;
     background-color: var(--mantine-color-blackCustom-0);
     border-radius: 12px;
 
-    h2 {
+    .title {
       margin-top: 0;
       margin-bottom: 0;
     }

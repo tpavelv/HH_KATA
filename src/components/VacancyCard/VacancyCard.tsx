@@ -23,9 +23,10 @@ const experienceMap: Record<string, string> = {
 export const VacancyCard = ({ vacancy, isAbout }: VacancyCardProps) => {
   const { id, name, salary, experience, area, employer, work_format, alternate_url } = vacancy
   const navigate = useNavigate()
+
   const handleShow = (id: string) => {
     console.log(id)
-    navigate(`/vacancy/${id}`)
+    navigate(`/vacancies/${id}`)
   }
   const handleReply = (id: string) => console.log(id)
 
@@ -53,6 +54,7 @@ export const VacancyCard = ({ vacancy, isAbout }: VacancyCardProps) => {
       onShow={() => handleShow(id)}
       onReply={() => handleReply(id)}
       isAbout={isAbout}
+      id={id}
     />
   )
 }
